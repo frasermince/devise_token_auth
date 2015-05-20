@@ -8,12 +8,12 @@ module DeviseTokenAuth
     def redirect_callbacks
       # derive target redirect route from 'resource_class' param, which was set
       # before authentication.
-      devise_mapping = request.env['omniauth.params']['resource_class'].underscore.to_sym
+      devise_mapping = session['omniauth.params']['resource_class'].underscore.to_sym
       redirect_route = "/#{Devise.mappings[devise_mapping].as_json["path"]}/#{params[:provider]}/callback"
 
       # preserve omniauth info for success route
-      session['dta.omniauth.auth'] = request.env['omniauth.auth']
-      session['dta.omniauth.params'] = request.env['omniauth.params']
+      session['dta.omniauth.auth'] = request.session['omniauth.auth']
+      session['dta.omniauth.params'] = request.session['omniauth.params']
 
       redirect_to redirect_route
     end
