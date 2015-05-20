@@ -84,10 +84,7 @@ module DeviseTokenAuth
 
     def omniauth_failure
       @error = params[:message]
-
-      respond_to do |format|
-        format.html { render :layout => "omniauth_response", :template => "devise_token_auth/omniauth_failure" }
-      end
+      render :layout => "layouts/omniauth_response", :template => "devise_token_auth/omniauth_failure"
     end
 
 
